@@ -1,0 +1,46 @@
+#ip information given ip address
+
+import requests
+
+def get_ip_info(ip_address):
+    try:
+        url = f"http://ipinfo.io/{ip_address}/json"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            ip_info = response.json()
+            return ip_info
+        else:
+            return {"error": f"Failed to retrieve information for {ip_address}"}
+
+    except requests.exceptions.RequestException as e:
+        return {"error": str(e)}
+
+def main():
+    ip_address = input("Enter an IP address: ")
+    ip_info = get_ip_info(ip_address)
+
+    if "error" in ip_info:
+        print(ip_info["error"])
+    else:
+        print("IP Version:", "IPv4" if "." in ip_address else "IPv6")
+        print("Network Routing:", ip_info.get("org"))
+        print("ASN (Autonomous System Number):", ip_info.get("asn"))
+        print("Reverse DNS:", ip_info.get("hostname"))
+        print("Abuse Reports:", ip_info.get("abuse"))
+        print("Domain:", ip_info.get("domain"))
+        print("Hostname:", ip_info.get("hostname"))
+        print("IP Range:", ip_info.get("ip"))
+        print("Proxy:", ip_info.get("proxy"))
+        print("Network Provider:", ip_info.get("org"))
+        print("Organization:", ip_info.get("org"))
+        print("Country:", ip_info.get("country"))
+        print("State:", ip_info.get("region"))
+        print("City:", ip_info.get("city"))
+        print("Region:", ip_info.get("region"))
+        print("Postal",ip_info.get("postal"))
+        print("Latitude:", ip_info.get("loc").split(",")[0])
+        print("Longitude:", ip_info.get("loc").split(",")[1])
+
+if __name__ == "__main__":
+    main()
