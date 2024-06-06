@@ -1,0 +1,23 @@
+import socket
+
+def get_ip_address(url):
+  """Gets the IP address of a given URL.
+
+  Args:
+    url: The URL to get the IP address of.
+
+  Returns:
+    The IP address of the given URL.
+  """
+
+  hostname = url.split("//")[-1].split("/")[0]
+  return socket.gethostbyname(hostname)
+
+
+# Example usage:
+
+url = input("Enter url to get corressponding ip address ")
+
+ip_address = get_ip_address(url)
+
+print(ip_address)
